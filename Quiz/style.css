@@ -1,0 +1,104 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@100..900&family=Manrope:wght@200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Satisfy&display=swap");
+
+body {
+  background-color: #db6094;
+  font-family: "Inter", sans-serif;
+}
+
+@media (min-width: 1280px) {
+}
+
+.container {
+  padding: 10px;
+  display: block;
+  margin: 3% auto 5% auto;
+  height: 80vh;
+  width: 50em;
+  box-shadow: 20px 20px #4f1787;
+  background-color: #fff;
+}
+
+.greeting {
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 900;
+  letter-spacing: 5px;
+  word-spacing: 15px;
+  font-size: 22px;
+  text-shadow: 2px 2px #db6094;
+  font-family: "Raleway", sans-serif;
+}
+
+.greeting h2 {
+  margin-bottom: 0;
+}
+
+.question-container h3 {
+  padding-left: 0.4em;
+  display: inline;
+  font-size: 1.5em;
+  border-left: 7px solid #4f1787;
+  border-bottom: 7px solid #4f1787;
+}
+
+.question-container {
+  font-family: "Manrope";
+  padding-left: 2em;
+}
+
+.choice {
+  display: flex;
+  flex-direction: column;
+  padding-left: 2em;
+  width: 92%;
+  flex-wrap: wrap;
+  gap: 2em;
+}
+
+.ch {
+  background-color: white;
+  text-align: start;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 18px;
+  font-family: "DM Serif Display";
+  transition: all 0.3s;
+  border-radius: 5px;
+}
+
+.selected {
+  background-color: #000;
+  color: #fff;
+}
+
+.ch:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.next {
+  margin: 4% 0 0 4%;
+  display: flex;
+  justify-content: center;
+}
+
+.next button {
+  font-family: "DM Serif Display";
+  font-size: 1.4em;
+  font-weight: 900;
+  letter-spacing: 1px;
+  padding: 8px 10px;
+  box-shadow: 4px 4px #333875;
+  width: 15%;
+  cursor: pointer;
+  color: #4f1787;
+  background-color: mediumpurple;
+  transition: all 0.3s;
+}
+
+.next button:hover {
+  background-color: #000;
+  color: #fff;
+  box-shadow: none;
+}

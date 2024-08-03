@@ -1,0 +1,169 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Gloock&family=Inter:wght@100..900&family=Lovers+Quarrel&family=Manrope:wght@200..800&family=Marcellus&display=swap");
+
+body {
+  background-color: #151515;
+  background-image: url(https://store.akamai.steamstatic.com/public/images/v6/colored_body_top.png?v=2);
+  margin: 0;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  z-index: -1;
+}
+
+.heading {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  background-color: #171d25;
+  height: 8em;
+}
+
+.rem-body {
+  margin: 0 10em;
+}
+
+.store-name {
+  padding-top: 2%;
+  align-items: end;
+}
+
+.store-name h1 {
+  font-family: "Inter", sans-serif;
+  font-weight: 800;
+  margin: 30px;
+  padding-left: 4em;
+  font-size: 2em;
+  color: #fff;
+}
+
+.right {
+  padding-top: 2%;
+}
+
+.about h3 {
+  font-family: "Manrope";
+  margin: 30px 4em 0 0;
+  font-weight: 900;
+  color: #fff;
+  font-size: 1.3em;
+}
+
+.offer-product h3 {
+  font-family: "Manrope", sans-serif;
+  color: red;
+}
+.container {
+  display: flex;
+}
+
+.left-image {
+  width: 35%;
+}
+.left-image img {
+  width: 90%;
+}
+
+.right-text {
+  width: 65%;
+}
+
+.same-box {
+  display: flex;
+  justify-content: space-between;
+}
+
+i {
+  color: #c0c0c0;
+}
+
+.title-name h3 {
+  font-family: "Manrope";
+  font-weight: 900;
+  font-size: 32px;
+  margin: 0;
+}
+
+.price h3 {
+  margin: 0;
+  font-family: "Inter";
+  font-size: 24px;
+  padding-top: 17%;
+}
+
+ul {
+  display: flex;
+  gap: 2em;
+}
+
+.type {
+  margin-top: 1em;
+}
+
+.description {
+  font-family: "Inter", sans-serif;
+  color: #c8acd6;
+}
+
+.description h4 {
+  margin-top: 5px 0 2px 0;
+}
+
+.description p {
+  line-height: 1;
+}
+
+.rdr-2,
+.gtav {
+  margin-bottom: 3%;
+}
+
+.rdr-2:hover,
+.gtav:hover,
+.tbr:hover {
+  cursor: pointer;
+}
+
+.upcoming h2 {
+  font-family: "Manrope";
+}
+
+.upcoming {
+  margin-bottom: 50px;
+  border: 2px solid rgb(68, 121, 201);
+  text-align: center;
+}
+
+.grid-area {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-auto-rows: 240px;
+}
+
+.item-1 {
+  grid-row: 1/4;
+  background-color: aliceblue;
+}
+
+.item-2 {
+  grid-column: 2/ 4;
+  grid-row: 1/ 3;
+  background-color: antiquewhite;
+}
+
+.item-3 {
+  grid-column: 2/4;
+  grid-row: 3/4;
+  background-color: #c8acd6;
+}
+
+.item-4 {
+  grid-column: 4/5;
+  grid-row: 1/4;
+  background-color: yellowgreen;
+}
+
+.grid-area img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

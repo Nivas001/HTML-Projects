@@ -1,0 +1,120 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@100..900&family=Manrope:wght@200..800&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playwrite+HR+Lijeva:wght@100..400&family=Playwrite+IN:wght@100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+
+.heading {
+  color: #610c9f;
+  text-shadow: 0px 4px 4px #b931fc;
+  letter-spacing: 3px;
+  word-spacing: 5px;
+  max-width: 446px;
+  text-transform: uppercase;
+  float: left;
+  font: 700 32px Manrope, sans-serif;
+}
+
+.heading-back {
+  display: absolute;
+  background-color: #aa96da;
+  border-left: 10px solid #86469c;
+  height: 80px;
+  width: 100%;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.heading h2 {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 10px 0 0 20px;
+}
+
+.shop_name {
+  display: relative;
+  margin-bottom: 0px;
+  padding-top: 20px;
+}
+
+.search {
+  float: right;
+  margin: 0;
+  padding: 40px 20px 0 0;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+.product-card:hover {
+  background-color: #bbdefb;
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.search input {
+  border: 2px solid #86469c;
+  background-color: #bc78cf;
+  font-family: "Inter", sans-serif;
+  height: 24px;
+
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.product-card {
+  margin: 30px;
+  height: 450px;
+  width: 320px;
+  background-color: #e3f2fd;
+  border-radius: 8px;
+  padding: 10px;
+  border: 1px #d9d9d9 solid;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-image img {
+  height: 310px;
+  width: 310px;
+  padding: 5px;
+}
+
+.product-title h2 {
+  padding-left: 4px;
+  margin: 10px 0 0 0;
+  font-family: "Inter", sans-serif;
+}
+
+.product-price h3 {
+  margin: 10px 0 0 6px;
+  font-weight: 800;
+  font-size: 24px;
+  font-family: "Inter", sans-serif;
+}
+
+.add-to-cart {
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 10px;
+  font-family: "Manrope", sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-to-cart:hover {
+  background-color: #e68900;
+}
+
+body {
+  background-color: #ad88c6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

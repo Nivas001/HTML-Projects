@@ -1,0 +1,152 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Manrope:wght@200..800&family=Playwrite+AT:ital,wght@0,100..400;1,100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.top h3 {
+  font-family: "Playwrite AT", cursive;
+  color: #433d8b;
+  font-weight: 300;
+  font-size: 32px;
+  padding-left: 50px;
+  animation: 1s ease-in running hello_animate;
+}
+
+.top a {
+  text-decoration: none;
+  color: #433d8b;
+}
+
+.top a:hover {
+  text-decoration: underline;
+}
+
+@keyframes hello_animate {
+  from {
+    padding-left: 0px;
+  }
+  to {
+    padding-right: 50px;
+  }
+}
+
+.top ul {
+  padding-top: 10px;
+  display: flex;
+}
+
+.about span:hover {
+  color: #fff;
+  background-color: #433d8b;
+}
+
+.top ul li {
+  font-size: 24px;
+  font-family: "Manrope", sans-serif;
+  margin-right: 50px;
+  list-style: none;
+}
+
+.main {
+  position: relative;
+  margin: auto;
+  width: 60%;
+  padding: 10px;
+  margin-bottom: 0;
+  padding-top: 5%;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  padding-top: 30px;
+  font-family: "Raleway", "Times New Roman", Times, serif;
+}
+
+.right h2 {
+  font-size: 42px;
+}
+.right h4 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.mar-top {
+  margin-top: 0;
+}
+
+img {
+  width: 350px;
+  height: 330.05px;
+}
+.mar-bot {
+  margin-bottom: 0;
+}
+body {
+  background-color: #c8acd6;
+}
+
+.about h4 {
+  font-family: "Manrope";
+  margin-bottom: 0;
+  color: #433d8b;
+  font-size: 30px;
+}
+
+.about p {
+  font-family: "inter";
+}
+
+.bottom {
+  display: flex;
+  margin-top: 8%;
+  padding: 10px 100px;
+}
+
+.bottom .phone,
+.follow {
+  padding-left: 30%;
+}
+
+.bottom h4 {
+  font-family: "Playwrite AT", cursive;
+  margin-bottom: 0;
+  font-size: 24px;
+  color: #433d8b;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.bottom h5 {
+  font-family: "Manrope";
+  margin-top: 22px;
+}
+
+.mail-content,
+.phone-content,
+.follow-content,
+.follow-git {
+  display: flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.mail-content i,
+.phone-content i,
+.follow-content i {
+  color: #433d8b;
+  margin-right: 10px;
+}
+
+.follow-content a {
+  text-decoration: none;
+  color: #000;
+}
+
+.follow-content h5 {
+  margin-top: 20px;
+}
