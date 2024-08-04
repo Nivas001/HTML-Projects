@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet", href="style.css">
+    <title>Employee Details</title>
+</head>
+<body>
+<div class="nav-bar">
+    <div class="nav-bar-left">
+        <a href="index.html">Home</a>
+    </div>
+    <div class="nav-bar-right">
+        <a href="emp.html">Employee-list</a>
+    </div>
+</div>
+
+<div class="Login">
+    <div class="heading">
+        <h2>Employee Details</h2>
+    </div>
+    <div class="container">
+        <form method="post" action="connect.php">
+            <label for="emp_id">Employee ID</label>
+            <input type="text" id="emp_id" name="emp_id" placeholder="Employee ID" required>
+            <label for="emp_name">Name</label>
+            <input type="text" id="emp_name" name="emp_name" placeholder="Employee Name" required>
+            <div class="radios">
+                <span>
+                    <label for="male">Gender :&nbsp;&nbsp; Male</label>
+                    <input type="radio" id="male" name="gender" value="Male">
+                </span>
+                &nbsp;&nbsp;
+                <span>
+                    <label for="female">Female</label>
+                    <input type="radio" id="female" name="gender" value="Female">
+                </span>
+            </div>
+            <label for="emp_email">Email</label>
+            <input type="email" id="emp_email" name="emp_email" placeholder="Employee Email" required>
+            <label for="emp_phone">Phone</label>
+            <input type="text" id="emp_phone" name="emp_phone" placeholder="Employee Phone" required>
+            <label for="emp_address">Address</label>
+            <input type="text" id="emp_address" name="emp_address" placeholder="Employee Address" required>
+            <label for="emp_dob">Employee DOB</label>
+            <input type="date" id="emp_dob" name="emp_dob" required>
+            <label for="emp_doj">Employee DOJ</label>
+            <input type="date" id="emp_doj" name="emp_doj" required>
+            <label for="emp_desig">Designation</label>
+            <input type="text" id="emp_desig" name="emp_desig" placeholder="Employee Designation" required>
+            <label for="emp_sal">Salary</label>
+            <input type="text" id="emp_sal" name="emp_sal" placeholder="Employee Salary" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

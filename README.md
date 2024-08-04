@@ -1,1 +1,1 @@
-This is a Repository created to write my coding exersice acc. to my University 
+This is a **Repository created** to write my coding exercise _acc. to my University_ 
