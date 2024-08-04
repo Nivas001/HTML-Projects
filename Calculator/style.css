@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Hind:wght@300;400;500;600;700&family=Inter:wght@100..900&family=Manrope:wght@200..800&family=Marcellus&family=Satisfy&display=swap');
+/*body {*/
+/*    background-image: url("https://drive.google.com/thumbnail?id=1K3B9B12ULUuGIb6a0wi1K6o26zMrBpTF&sz=w1000");*/
+/*    background-size: cover;*/
+/*    background-repeat: no-repeat;*/
+/*    background-attachment: fixed;*/
+/*    background-position: center;*/
+/*}*/
+
+body{
+    background-color: #f5f5f5;
+    font-family: "Inter", sans-serif;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.calculator{
+
+}
+.calculator h1{
+    font-size: 36px;
+    padding: 0.5em;
+    font-family: "Inter", sans-serif;
+}
+
+#input{
+    padding: 0.5em;
+    margin: 0 20%;
+    width: 60%;
+    font-size: 30px;
+    font-weight: 600;
+    text-align: right;
+    font-family: "Inter", sans-serif;
+}
+
+input:focus{
+    outline: none;
+}
+.buttons{
+    margin: 0 20%;
+    width: 63%;
+}
+
+.line{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.line button{
+    font-size: 18px;
+    font-family: "Inter", sans-serif;
+    padding: 0.5em;
+    width: 100%;
+    border: none;
+}
+hr{
+    margin: 0 0 3% 0;
+}
+
+.rows{
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
+.rows button{
+    font-family: "Inter", sans-serif;
+    font-size: 18px;
+    border: 1px solid black;
+    width: 100%;
+    padding: 1em;
+}
