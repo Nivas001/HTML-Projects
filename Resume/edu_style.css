@@ -12,6 +12,25 @@ body {
   font-family: "Playwrite AT", sans-serif;
 }
 
+.head4{
+  font-family: "Inter", sans-serif;
+  font-size: 22px;
+}
+
+.head5{
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+  margin: 4px;
+}
+
+#abs{
+  text-decoration: underline;
+}
+
+.para{
+  font-family: "Inter", sans-serif;
+}
+
 .left {
   font-family: "Playwrite AT", sans-serif;
   font-size: 28px;
@@ -43,6 +62,12 @@ body {
 
 #ex_name {
   margin-top: 20px;
+}
+
+a{
+  text-decoration: none;
+  color: #4f1787;
+
 }
 
 .ex_first h5 {
