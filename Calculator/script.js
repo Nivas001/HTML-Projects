@@ -1,6 +1,77 @@
 var screen = '';
 
+var store = [];
 var inputElement = document.querySelector('#input');
+
+//TODO : If mc is clicked during ms in visibility it need to change the value of ms.
+
+//MC button
+document.querySelector('.mc').addEventListener('click', function(){
+    store = [];
+    console.log(store);
+})
+
+//MR button
+document.querySelector('.mr').addEventListener('click', function(){
+    screen = store[store.length - 1];
+    inputElement.value = screen;
+    console.log(screen);
+})
+
+//M+ button
+document.querySelector('.mplus').addEventListener('click', function(){
+    store.push(screen);
+    console.log(store);
+})
+
+//M- button
+document.querySelector('.msub').addEventListener('click', function(){
+    store.pop();
+    console.log(store);
+})
+
+document.querySelector('.store').style.visibility = 'hidden';
+
+//m_store button
+document.querySelector('.mstore').addEventListener('click', function(){
+    var element = document.querySelector('.store');
+    if (element.style.visibility === 'hidden') {
+        element.style.visibility = 'visible';
+        const values = document.querySelector('.values');
+        values.innerHTML = '';
+        for(let i=0; i<store.length; i++){
+            const valueElement = document.createElement('div');
+            valueElement.textContent = store[i];
+            values.appendChild(valueElement);
+        }
+    }
+    else{
+        element.style.visibility = 'hidden';
+    }
+
+})
+
+
+//Keyboard input
+document.addEventListener('keydown', function(event) {
+    // Check if the key pressed is a number or an operator
+    if ((event.key >= '0' && event.key <= '9') || ['+', '-', '*', '/', '.', '(', ')'].includes(event.key)) {
+        screen += event.key;
+        inputElement.value = screen;
+    } else if (event.key === 'Enter') {
+        // If Enter key is pressed, evaluate the expression
+        document.querySelector('.eq').click();
+    } else if (event.key === 'Backspace') {
+        // If Backspace key is pressed, delete the last character
+        screen = screen.slice(0, -1);
+        inputElement.value = screen;
+    } else if (event.key === 'Escape') {
+        // If Escape key is pressed, clear the input
+        screen = '';
+        inputElement.value = screen;
+    }
+});
+
 
 // Clear button
 document.querySelector('.clear').addEventListener('click', function(){
@@ -44,6 +115,35 @@ document.querySelector('.pi').addEventListener('click', function(){
     inputElement.value = screen;
 })
 
+//e button
+document.querySelector(".e").addEventListener('click', function(){
+    screen += Math.E.toString();
+    inputElement.value = screen;
+})
+
+//approx
+document.querySelector('.approx').addEventListener('click', function(){
+  screen = Math.round(screen);
+    inputElement.value = screen;
+})
+
+//log btn
+document.querySelector('.log').addEventListener('click', function (){
+    if(screen.length > 0){
+        screen = 'log('+screen+')';
+    }
+    else {
+        screen = 'log(';
+    }
+    inputElement.value = screen;
+})
+
+//Random button
+document.querySelector('.rand').addEventListener('click', function(){
+    screen = parseInt((Math.random()*100)+1).toString();
+    inputElement.value = screen;
+})
+
 //Sin button
 document.querySelector('.sin').addEventListener('click', function(){
     if(screen.length > 0){
@@ -77,6 +177,8 @@ document.querySelector('.tan').addEventListener('click', function(){
     inputElement.value = screen;
 })
 
+
+
 //Number buttons
 document.querySelectorAll('.num').forEach(function (button){
     button.addEventListener('click', function(){
@@ -89,7 +191,7 @@ function factorial(n) {
     return (n != 1) ? n * factorial(n - 1) : 1;
 }
 
-//TODO: Need to add log, ex, mod, e
+
 
 //to show number in console page
 document.querySelector('.eq').addEventListener('click', function() {
@@ -117,6 +219,12 @@ document.querySelector('.eq').addEventListener('click', function() {
             let parts = screen.split('√');
             let num = eval(parts[1]);
             screen = Math.sqrt(num, 2).toString();
+        }
+
+
+        else if(screen.includes('log')){
+            let parts = screen.slice(4, screen.length - 1);
+            screen = Math.log10(parseFloat(parts)).toString();
         }
 
         else if(screen.includes('sin')) {
