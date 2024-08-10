@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Hind:wght@300;400;500;600;700&family=Inter:wght@100..900&family=Manrope:wght@200..800&family=Marcellus&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Satisfy&display=swap');
+
+label{
+    font-family: "Manrope", sans-serif;
+    font-weight: 700;
+}
+
+
+/*mobile layout*/
+@media(min-width: 100px) and (max-width: 440px){
+    *{
+        background-color: #db6094;
+    }
+    .register{
+        display: block;
+        height: fit-content;
+    }
+    .head{
+        text-items: center;
+    }
+    #title{
+        margin: 0;
+        font-size: 25px;
+    }
+
+
+}
+
+/*tab layout*/
+@media (min-width: 441px)and (max-width: 1080px) {
+    *{
+        background-color: #EB5B00;
+    }
+
+}
+
+
+/*Desktop layout*/
+@media (min-width: 1081px){
+
+
+    .register{
+        height: fit-content;
+        margin: auto;
+    }
+    input{
+        width: 80%;
+        padding: 10px;
+        background: transparent;
+        margin-bottom: 2em;
+        font-size: 22px;
+        border: none;
+        transition: 0.4s;
+        border-bottom: 3px solid #6482AD;
+        outline: none;
+    }
+    input:focus{
+        border: none;
+        border-bottom: 3px solid #836FFF;
+        box-shadow: 0 0;
+    }
+
+
+
+    label{
+        font-size: 22px;
+        color: #171d25;
+        margin-bottom: 7px;
+    }
+
+    .nav-bar a{
+        font-size: 28px;
+    }
+
+    .values{
+        padding: 10px;
+        padding-left: 16%;
+        background-color: transparent;
+        backdrop-filter: blur(10px);
+        /*border: 1px solid #BEDC74;*/
+
+    }
+    #title{
+        margin-top: 5%;
+        margin-left: 18%;
+        font-size: 32px;
+    }
+    .left{
+        width: 50%;
+    }
+    .right{
+        padding-right: 50px;
+    }
+    button{
+        width: 180px;
+        padding: 2% 4%;
+        font-size: 22px;
+        margin-left: 20%;
+    }
+}
+
+
+/*General CSS for all layouts*/
+
+
+.divider{
+    display: flex;
+}
+
+button{
+    display: block;
+    font-family: "Manrope", sans-serif;
+    color: #EB5B00;
+    cursor: pointer;
+    border: none;
+    transition:ease-out 0.2s;
+    font-weight: 800;
+    box-shadow: inset 0 0 0 0 #EB5B00;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.fa-regular{
+    cursor: pointer;
+}
+
+.bg{
+    background-color: #F0EBE3;
+}
+
+.tolog a, p{
+    font-family: "Inter", sans-serif;
+}
+
+.tolog{
+    margin-top: 15px;
+    margin-left: 30px;
+}
+
+button:hover{
+    animation: 2s slidein;
+    box-shadow: inset 180px 0 0 0 #EB5B00;
+    color: #F0EBE3;
+}
+
+.right img{
+    width: 840px;
+    height: 840px;
+}
+
+.nav-bar{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 10%;
+}
+
+.nav-bar a{
+    font-family: "Inter", sans-serif;
+    color: #000000;
+    text-decoration: none;
+}
+
+#title{
+    font-family: "DM Serif Display";
+    font-weight: 900;
+}
+
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+/*Changed number type to text here so not needed but useful in future */
+/*For not showing increase or decrease in number type in forms */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+
+input{
+    font-family: "Inter", sans-serif;
+}

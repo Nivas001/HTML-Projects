@@ -6,11 +6,11 @@
         background-color: #db6094;
     }
     .nav-bar h2{
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .right-nav{
-        width: 70% !important;
+        width: 58% !important;
     }
 
     .left-nav{
@@ -26,12 +26,16 @@
     *{
         background-color: #EB5B00;
     }
+    .left-nav{
+        width: 20%;
+        justify-content: space-around;
+    }
     .right-nav{
         gap: 1em;
-        width: 70% !important;
+        width: 40% !important;
     }
     .nav-bar h2{
-        font-size: 18px;
+        font-size: 24px;
     }
 }
 
@@ -41,15 +45,24 @@
     *{
         background-color: darkcyan;
     }
+    .nav-bar h2{
+        font-size: 32px;
+    }
     .left-nav{
-        width: 30%;
+        width: 20%;
+        justify-content: space-around;
     }
     .right-nav{
         width: 40%;
     }
-
+    .content{
+        width: 70%;
+        margin: auto;
+    }
 }
 
+
+/*General CSS for all layouts*/
 .nav-bar{
     display: flex;
     flex-direction: row;
@@ -92,5 +105,5 @@
 .heading h1{
     font-family: "Inter", sans-serif;
     font-weight: 900;
-
 }
+

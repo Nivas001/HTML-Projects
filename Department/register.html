@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=yes, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Register</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="register.css">
+</head>
+<body>
+<div class="nav-bar">
+    <div class="home">
+        <h2><a href="index.html">Home</a></h2>
+    </div>
+    <div class="About us">
+        <h2><a href="about.html">About us</a></h2>
+    </div>
+</div>
+<div class="register">
+    <div class="head">
+        <h3 id="title">Register</h3>
+    </div>
+    <div class="divider">
+        <div class="left">
+            <div class="values">
+                <form action="post" href="connect.php">
+                    <label for="roll">Roll No.</label>
+                    <input type="number" maxlength="8" id="roll" placeholder="20***001" required>
+                    <label for="name">Name</label>
+                    <input type="text" maxlength="45" id="name" required>
+                    <label for="email">Email &nbsp;&nbsp;<i class="fa-regular fa-envelope"></i></label>
+                    <input type="email" maxlength="45" id="email" placeholder="123@pondiuni.ac.in" required>
+                    <label for="pass">Password &nbsp;&nbsp;<i class="fa-regular fa-eye"></i></label>
+                    <input type="password" maxlength="20" id="pass" required>
+                    <div class="hid"><p></p></div>
+                    <label for="phone">Phone</label>
+                    <input type="number" maxlength="10" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" id="phone" placeholder="7896541230" required>
+                    <label for="course">Course</label>
+                    <input list="courses" id="course" placeholder="Ex. MCA/MSC/MTECH" required>
+                    <datalist id="courses">
+                        <option value="MCA"></option>
+                        <option value="MSC"></option>
+                        <option value="M.TECH"></option>
+                        <option value="Phd"></option>
+                    </datalist>
+                    <button type="submit" class="bg" onclick="send()">Submit</button>
+                    <div class="tolog">
+                        <p>Already having an account? <a href="" class="link"> Click here to Login</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="right">
+            <img src="https://img.freepik.com/free-vector/access-control-system-abstract-concept-vector-illustration-security-system-authorize-entry-login-credentials-electronic-access-password-passphrase-pin-verification-abstract-metaphor_335657-5746.jpg?w=740&t=st=1723305254~exp=1723305854~hmac=8cfb9f5194ba927229b6da1f436a0a4e78bbe2678f224aa5efe1ee01ca6a88e8">
+        </div>
+    </div>
+</div>
+<!--TODO : Need to Do for Login block and About us new page-->
+<script src="index.js"></script>
+</body>
+</html>
