@@ -37,7 +37,7 @@
 
 
 /*Desktop layout*/
-@media (min-width: 1081px) and (max-width: 1920px){
+@media (min-width: 1081px){
     *{
         background-color: darkcyan;
     }
