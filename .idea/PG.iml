@@ -11,8 +11,11 @@
       <sourceFolder url="file://$MODULE_DIR$/Store2" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Calculator" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Department" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Simon Game" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Simon Game/sounds" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="@types/jquery" level="application" />
   </component>
 </module>

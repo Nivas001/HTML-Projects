@@ -107,6 +107,24 @@ label{
     display: flex;
 }
 
+.regi{
+    display: block;
+}
+
+.login{
+    display: block;
+}
+
+.reg-link, .log-link{
+    text-decoration: underline;
+    cursor: pointer;
+    color: #6482AD;
+}
+
+.active{
+
+}
+
 button{
     display: block;
     font-family: "Manrope", sans-serif;
