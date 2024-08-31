@@ -13,6 +13,8 @@
       <sourceFolder url="file://$MODULE_DIR$/Department" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Simon Game" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Simon Game/sounds" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Company" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Company/css" type="java-resource" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
