@@ -14,7 +14,9 @@
       <sourceFolder url="file://$MODULE_DIR$/Simon Game" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Simon Game/sounds" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Company" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Company/css" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/Firebase-fetch" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ClaDent" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Final Project call" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
