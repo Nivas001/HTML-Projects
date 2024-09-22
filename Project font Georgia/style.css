@@ -1,14 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Manrope:wght@200;800&display=swap');
 
 body {
-    font-family: "Inter", sans-serif;
+    /*font-family: "Georgia", sans-serif;*/
     background-color: #f0f2f5;
     margin: 0;
     padding: 20px;
-}
-
-.patient-filter{
-    font-family: "Inter", sans-serif;
 }
 
 .heading {
@@ -63,7 +59,6 @@ body {
 .time {
     font-size: 2.3rem;
     font-weight: 900;
-    /*color: #f05d5e;*/
     color: #03C0C1;
     text-align: center;
 }
@@ -125,7 +120,6 @@ td:nth-child(2) {
 }
 
 button {
-    /*background-color: #f05d5e;*/
     background-color: #03C0C1;
     color: #ffffff;
     border: none;
@@ -138,7 +132,6 @@ button {
 }
 
 button:hover {
-    /*background-color: #e74c3c;*/
     background-color: #007F80;
 }
 
@@ -149,17 +142,18 @@ button:hover {
     color: #333;
 }
 
+
+
 /* Style for dropdown */
-.filter {
+.dropdown {
     position: absolute;
-    top: 38px;
-    right: 35px;
+    top: 20px;
+    right: 10px;
     z-index: 1000;
 }
 
-#dateFilter {
+.patient-filter {
     padding: 5px;
     font-size: 14px;
     cursor: pointer;
 }
-

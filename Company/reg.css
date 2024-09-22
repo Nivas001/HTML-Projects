@@ -57,6 +57,7 @@ button{
 
 button:hover{
     cursor: pointer;
+    color: #F0EBE3;
     animation: ease-in 0.3s;
     box-shadow: inset 80px 0 0 0 #41B3A2;
 }

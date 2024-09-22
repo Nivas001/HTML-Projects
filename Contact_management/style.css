@@ -1,0 +1,7 @@
+body {
+    background-color: #f8fafc; /* light gray */
+}
+.container {
+    max-width: 800px;
+    margin-top: 50px;
+}
