@@ -11,11 +11,35 @@ if ($_SESSION['role'] != 'employee') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
     <title>Employee Dashboard</title>
+    <style>
+        body{
+            font-family: "Inter", sans-serif;
+        }
+        h2,h3{
+            text-align: center;
+        }
+
+        .tb{
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+    </style>
 </head>
 <body>
     <h2>Welcome, Employee</h2>
     <h3>Admin Details:</h3>
+
+    <table class="tb">
+        <tr>
+            <th>Admins</th>
+        </tr>
+    </table>
 
 
     <?php
@@ -35,7 +59,12 @@ if ($_SESSION['role'] != 'employee') {
 
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
-            echo "Admin: " . $row["name"] . "<br>";
+//            echo "Admin: " . $row["name"] . "<br>";
+            echo "<table class='tb'> 
+                <tr>
+                    <td>" . $row["name"] . "</td>
+                </tr>
+                </table>";
         }
     } else {
         echo "No admins found.";
