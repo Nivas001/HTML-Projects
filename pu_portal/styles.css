@@ -1,0 +1,148 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    margin: auto;
+    overflow: hidden;
+}
+
+/* Header Styles */
+header {
+    background: #343a40;
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+/* Navigation Styles */
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Form Styles */
+form {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form .form-label {
+    font-weight: bold;
+}
+
+form .form-control {
+    margin-bottom: 1rem;
+}
+
+form button {
+    margin-top: 1rem;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 0.5rem;
+    border: 1px solid #dee2e6;
+    text-align: left;
+}
+
+table th {
+    background-color: #f1f1f1;
+}
+
+#filterForm {
+    border: 1px solid #ccc; /* Add a border */
+    padding: 15px; /* Increase padding */
+    border-radius: 5px; /* Optional: add rounded corners */
+    margin-left:-10px;
+    margin-bottom: 20px; /* Space below the filter box */
+    background-color: #f9f9f9; /* Light background color */
+}
+#room-cards {
+    display: flex;
+    flex-direction: column;
+}
+
+.room-card {
+    display: flex;
+    background-color: white;
+    padding: 15px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+.room-img {
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 20px;
+    border-radius: 5px;
+}
+
+.room-details {
+    flex: 1;
+}
+
+.room-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: right;
+}
+
+.features-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.features-list li {
+    margin-bottom: 5px;
+}
+
+.book-button {
+    background-color: #0044cc;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.book-button:hover {
+    background-color: #0033aa;
+}
