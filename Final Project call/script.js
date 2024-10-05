@@ -38,7 +38,7 @@ function generateCardsBasedOnSelection() {
     // Filter logic based on the dropdown selection
     if (selectedDate === 'yesterday') {
         filteredPatients = yesterdayPatients;
-        patientLabel.textContent = 'Yesterday\'s Patients';
+        patientLabel.textContent = 'Consultant';
     } else if (selectedDate === 'tomorrow') {
         filteredPatients = tomorrowPatients;
         patientLabel.textContent = 'Tomorrow\'s Patients';

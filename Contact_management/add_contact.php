@@ -14,6 +14,7 @@
         <input type="text" name="name" placeholder="Name" class="border p-2 w-full" required>
         <input type="email" name="email" placeholder="Email" class="border p-2 w-full" required>
         <input type="text" name="phone" placeholder="Phone" class="border p-2 w-full" required>
+
         <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Add Contact</button>
     </form>
     <a href="index.php" class="mt-4 inline-block text-blue-600">Back to Contact List</a>
