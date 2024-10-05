@@ -6,17 +6,19 @@ include 'db_connection.php'; // Include database connection
 $loggedIn = isset($_SESSION['role']);
 $user_role = $loggedIn ? $_SESSION['role'] : null;
 
+
+
 // Set the room type based on the URL parameter, default to 'all'
 $room_type = isset($_GET['type']) ? $_GET['type'] : 'all';
-$auditoriums = ($room_type === 'auditorium' || $room_type === 'all') ?  
+$auditoriums = ($room_type === 'auditorium' || $room_type === 'all') ?
     $db->query("SELECT a.*, u.username AS in_charge_name 
                 FROM auditoriums a 
                 JOIN users u ON a.in_charge_id = u.user_id")->fetch_all(MYSQLI_ASSOC) : [];
-$seminar_halls = ($room_type === 'seminar_hall' || $room_type === 'all') ? 
+$seminar_halls = ($room_type === 'seminar_hall' || $room_type === 'all') ?
     $db->query("SELECT sh.*, u.username AS in_charge_name 
                  FROM seminar_halls sh 
                  JOIN users u ON sh.in_charge_id = u.user_id")->fetch_all(MYSQLI_ASSOC) : [];
-$complexes = ($room_type === 'lecture_hall_complex' || $room_type === 'all') ? 
+$complexes = ($room_type === 'lecture_hall_complex' || $room_type === 'all') ?
     $db->query("SELECT lhc.*, u.username AS in_charge_name 
                 FROM lecture_hall_complex lhc 
                 JOIN users u ON lhc.in_charge_id = u.user_id")->fetch_all(MYSQLI_ASSOC) : [];
@@ -33,19 +35,24 @@ $complexes = ($room_type === 'lecture_hall_complex' || $room_type === 'all') ?
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
     <link rel="stylesheet" href="styles.css"> <!-- Link to your custom CSS -->
     <style>
-        
-#filterForm {
-    border: 1px solid #ccc; /* Add a border */
-    padding: 15px; /* Increase padding */
-    border-radius: 5px; /* Optional: add rounded corners */
-    background-color: #f9f9f9;
-    width:250px; /* Light background color */
-}
-        </style>
+
+        #filterForm {
+            border: 1px solid #ccc; /* Add a border */
+            padding: 15px; /* Increase padding */
+            border-radius: 5px; /* Optional: add rounded corners */
+            background-color: #f9f9f9;
+            width:250px; /* Light background color */
+        }
+
+    </style>
 </head>
 <body>
+
+<!--Navbar Section-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand" href="index.php">Pondicherry University</a>
@@ -57,7 +64,7 @@ $complexes = ($room_type === 'lecture_hall_complex' || $room_type === 'all') ?
                 <li class="nav-item"><a class="nav-link" href="index.php?type=auditorium">Auditorium</a></li>
                 <li class="nav-item"><a class="nav-link" href="index.php?type=seminar_hall">Seminar Hall</a></li>
                 <li class="nav-item"><a class="nav-link" href="complex.php">Lecture Hall Complex</a></li>
-                
+
                 <?php if ($loggedIn): ?>
                     <li class='nav-item'><a class='nav-link' href='logout.php'>Logout</a></li>
                 <?php else: ?>
@@ -68,10 +75,11 @@ $complexes = ($room_type === 'lecture_hall_complex' || $room_type === 'all') ?
     </div>
 </nav>
 
+<!--Main Content Section-->
 <div class="container mt-4">
     <?php if ($room_type === 'auditorium' || $room_type === 'all'): ?>
         <h2>Auditoriums</h2>
-        <div class="row">
+        <div class="row auditorium_container">
             <?php foreach ($auditoriums as $auditorium): ?>
                 <div class="col-lg-4 col-md-6 col-sm-12 mb-4"> <!-- Responsive column -->
                     <div class="card" onclick="location.href='room_details.php?room_id=<?php echo $auditorium['room_id']; ?>&type=auditorium'">
@@ -85,7 +93,17 @@ $complexes = ($room_type === 'lecture_hall_complex' || $room_type === 'all') ?
                                     <p class="card-text">Location: <?php echo $auditorium['location']; ?></p>
                                     <p class="card-text">In-Charge: <?php echo $auditorium['in_charge_name']; ?></p>
                                     <p class="card-text">Features: <?php echo $auditorium['features']; ?></p>
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookingModal" data-roomid="<?php echo $auditorium['room_id']; ?>" data-roomname="<?php echo $auditorium['room_name']; ?>" onclick="event.stopPropagation();">Book Now</button>
+
+                                    <!--to check if the usr is logged in or not-->
+                                    <?php if ($loggedIn): ?>
+                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookingModal1" data-roomid="<?php echo $auditorium['room_id']; ?>" data-roomname="<?php echo $auditorium['room_name']; ?>" onclick="event.stopPropagation();">Book Now</button>
+
+                                    <?php else: ?>
+                                        <button class="btn btn-primary" onclick="event.stopPropagation(); window.location.href='login.html';">Book Now</button>
+                                    <?php endif; ?>
+
+
+                                    <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookingModal" data-roomid="--><?php //echo $auditorium['room_id']; ?><!--" data-roomname="--><?php //echo $auditorium['room_name']; ?><!--" onclick="event.stopPropagation();">Book Now</button>-->
                                 </div>
                             </div>
                         </div>
@@ -96,7 +114,7 @@ $complexes = ($room_type === 'lecture_hall_complex' || $room_type === 'all') ?
     <?php endif; ?>
 
     <?php if ($room_type === 'seminar_hall'): ?>
-    
+
         <div class="mb-6 d-flex">
         <div class="me-4">
             <h5>Filter by Features</h5>
@@ -144,7 +162,7 @@ $complexes = ($room_type === 'lecture_hall_complex' || $room_type === 'all') ?
                         </div>
                     <?php endforeach; ?>
                 </div>
-        </div>   
+        </div>
     <?php endif; ?>
 
     <?php if ($room_type === 'all'): ?>
@@ -172,7 +190,7 @@ $complexes = ($room_type === 'lecture_hall_complex' || $room_type === 'all') ?
                         </div>
                     <?php endforeach; ?>
                 </div>
-        </div>   
+        </div>
     <?php endif; ?>
 
 
@@ -203,37 +221,107 @@ $complexes = ($room_type === 'lecture_hall_complex' || $room_type === 'all') ?
 </div>
 
 <!-- Booking Modal -->
-<div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="bookingModalLabel">Book Room</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="bookingForm">
-                    <input type="hidden" id="room_id" name="room_id">
-                    <input type="hidden" id="user_id" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
-                    <div class="mb-3">
-                        <label for="booking_date" class="form-label">Booking Date</label>
-                        <input type="text" class="form-control" id="booking_date" name="booking_date" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="start_time" class="form-label">Start Time</label>
-                        <input type="text" class="form-control" id="start_time" name="start_time" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="end_time" class="form-label">End Time</label>
-                        <input type="text" class="form-control" id="end_time" name="end_time" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Book Now</button>
-                </form>
+    <!-- For Auditorium -->
+    <div class="modal fade" id="bookingModal1" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="bookingModalLabel">Book Room</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="bookingForm">
+                        <input type="hidden" id="room_id" name="room_id">
+                        <input type="hidden" id="user_id" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+
+                        <!-- Start and End Date -->
+                        <div class="mb-3 d-flex justify-content-between">
+                            <div class="flex-fill me-2">
+                                <label for="start_date" class="form-label">Start Date</label>
+                                <input type="date" class="form-control" id="start_date" name="start_date" required>
+                            </div>
+                            <div class="flex-fill ms-2">
+                                <label for="end_date" class="form-label">End Date</label>
+                                <input type="date" class="form-control" id="end_date" name="end_date" required>
+                            </div>
+                        </div>
+
+                        <!-- Session Selection -->
+                        <div class="mb-3">
+                            <label class="form-label">Session</label>
+                            <div class="d-flex justify-content">
+                                <div class="form-check me-3">
+                                    <input class="form-check-input" type="radio" name="session" id="session_an" value="FN" required>
+                                    <label class="form-check-label" for="session_an">
+                                        Forenoon (FN)
+                                        <i class="bi bi-moon"></i>
+                                    </label>
+                                </div>
+                                <div class="form-check me-3">
+                                    <input class="form-check-input" type="radio" name="session" id="session_fn" value="AN" required>
+                                    <label class="form-check-label" for="session_fn">
+                                        <i class="bi bi-sun"></i>
+                                        Afternoon (AN)
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="session" id="session_fn" value="BOTH" required>
+                                    <label class="form-check-label" for="session_fn">
+                                        <i class="bi bi-shift"></i>
+                                        Both (FN & AN)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Purpose of Booking -->
+                        <div class="mb-3">
+                            <label for="purpose" class="form-label">Purpose of Booking</label>
+                            <textarea class="form-control" id="purpose" name="purpose" rows="3" required></textarea>
+                        </div>
+
+                        <!-- Number of Students Expected -->
+                        <div class="mb-3">
+                            <label for="students_expected" class="form-label">Number of Students Expected</label>
+                            <input type="number" class="form-control" id="students_expected" name="students_expected" required>
+                        </div>
+
+                        <!-- Professor's Name -->
+                        <div class="mb-3">
+                            <label for="professor_name" class="form-label">Professor's Name</label>
+                            <input type="text" class="form-control" id="professor_name" name="professor_name" required>
+                        </div>
+
+                        <!-- Professor's Department -->
+                        <div class="mb-3">
+                            <label for="professor_department" class="form-label">Professor's Department</label>
+                            <input type="text" class="form-control" id="professor_department" name="professor_department" required>
+                        </div>
+
+                        <!-- Professor's Contact Number -->
+                        <div class="mb-3">
+                            <label for="professor_contact" class="form-label">Professor's Contact Number</label>
+                            <input type="text" class="form-control" id="professor_contact" name="professor_contact" required>
+                        </div>
+
+                        <!-- Professor's Email ID -->
+                        <div class="mb-3">
+                            <label for="professor_email" class="form-label">Professor's Email ID</label>
+                            <input type="email" class="form-control" id="professor_email" name="professor_email" required>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary">Book Now</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
@@ -243,13 +331,14 @@ $complexes = ($room_type === 'lecture_hall_complex' || $room_type === 'all') ?
         // Function to fetch filtered seminar halls
         function fetchFilteredHalls() {
             const checkedFeatures = Array.from(filterForm.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
-            
+
             // Create an AJAX request
             const xhr = new XMLHttpRequest();
             xhr.open('POST', 'seminar_filters.php', true);
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
+                    // document.getElementById('auditorium_container').innerHTML = xhr.responseText;
                     document.getElementById('seminarHallContainer').innerHTML = xhr.responseText;
                 }
             };
@@ -260,6 +349,12 @@ $complexes = ($room_type === 'lecture_hall_complex' || $room_type === 'all') ?
         // Add change event listener to checkboxes
         filterForm.addEventListener('change', fetchFilteredHalls);
     });
+
+
+
+
+
+
 </script>
 
 
@@ -314,7 +409,7 @@ $complexes = ($room_type === 'lecture_hall_complex' || $room_type === 'all') ?
         });
     });
 
-   
+
 });
 
 </script>

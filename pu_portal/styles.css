@@ -146,3 +146,53 @@ table th {
 .book-button:hover {
     background-color: #0033aa;
 }
+
+
+.form-check {
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+}
+
+.form-check input {
+    position: absolute;
+    opacity: 0; /* Hide the default radio */
+    cursor: pointer;
+}
+
+.form-check-label {
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+    color: #555; /* Change color as desired */
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.form-check-label::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid #007bff; /* Change border color as desired */
+    border-radius: 50%; /* Circular shape */
+    background-color: white;
+}
+
+.form-check input:checked + .form-check-label::before {
+    background-color: #007bff; /* Change checked color */
+}
+
+.form-check input:checked + .form-check-label::after {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%; /* Inner circle */
+    background-color: white; /* Inner circle color */
+}
