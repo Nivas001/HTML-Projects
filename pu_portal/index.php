@@ -1,6 +1,7 @@
 <?php
 session_start();
 include 'db_connection.php'; // Include database connection
+include 'booking_modal.php'; // Include booking modal
 
 // Determine if the user is logged in
 $loggedIn = isset($_SESSION['role']);
