@@ -20,6 +20,11 @@
       <sourceFolder url="file://$MODULE_DIR$/Ex-7_Company" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Contact_management" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/pu_portal" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Weather" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/decoration" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Decoration figma" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/scratch" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/practice" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

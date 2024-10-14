@@ -279,6 +279,28 @@ if ($type == 'seminar_hall') {
             text-align: center;
             margin-top: 20px;
         }
+
+        .calendar-day[title] {
+            position: relative;
+        }
+
+        .calendar-day[title]:hover::after {
+            content: attr(title);
+            position: absolute;
+            bottom: 100%; /* Adjust as needed */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 5px;
+            border-radius: 4px;
+            white-space: nowrap;
+            z-index: 1000;
+            font-size: 12px;
+        }
+
+
+
     </style>
 </head>
 <body>
@@ -302,6 +324,12 @@ if ($type == 'seminar_hall') {
         </div>
     </div>
 </nav>
+
+
+
+
+
+
 
 <div class="container mt-4">
     <h2 class="mb-4"><?php echo htmlspecialchars($room['room_name']); ?></h2>
@@ -346,7 +374,8 @@ if ($type == 'seminar_hall') {
                             data-bs-toggle="modal"
                             data-bs-target="#bookingModal1"
                             data-roomid="<?php echo $room['room_id']; ?>"
-                            data-roomname="<?php echo htmlspecialchars($room['room_name']); ?>">
+                            data-roomname="<?php echo htmlspecialchars($room['room_name']); ?>"
+                            onclick="fillModalWithData(this);">
                         Book Now
                     </button>
                 </div>
@@ -555,7 +584,6 @@ if ($type == 'seminar_hall') {
             });
         });
 
-
         const calendars = document.querySelectorAll('.calendar');
         let currentDate = new Date();
 
@@ -598,7 +626,9 @@ if ($type == 'seminar_hall') {
                 if (dateString < today) {
                     dayElement.classList.add('past');
                 } else if (bookings[dateString]) {
-                    dayElement.classList.add(bookings[dateString].toLowerCase());
+                    // Mark as booked and add a tooltip with the name of the person who booked it
+                    dayElement.classList.add(bookings[dateString].status.toLowerCase());
+                    dayElement.setAttribute('title', `Booked by: ${bookings[dateString].bookedBy}`);
                 } else {
                     dayElement.classList.add('available');
                 }
@@ -625,31 +655,60 @@ if ($type == 'seminar_hall') {
             });
         });
 
-
-
-    });
 </script>
 </body>
 </html>
 <script>
 
-    // Date selection for booking
-    document.addEventListener('click', function(e) {
-        if (e.target.closest('.calendar-day')) {
-            const selectedDate = e.target.closest('.calendar-day').dataset.date;
 
-            // Check if the selected date is available
-            if (e.target.closest('.calendar-day').classList.contains('available')) {
-                // Set the selected date as start and end date in the modal
-                document.getElementById('start_date').value = selectedDate;
-                document.getElementById('end_date').value = selectedDate;
+    function fillModalWithData(buttonElement) {
+        // Get the room name and room ID from the data attributes of the clicked button
+        var roomName = buttonElement.getAttribute('data-roomname');
+        var roomId = buttonElement.getAttribute('data-roomid');
 
-                // Open the booking modal
-                const bookingModal = new bootstrap.Modal(document.getElementById('bookingModal1'));
-                bookingModal.show();
-            }
-        }
-    });
+        // Set the modal room name
+        document.getElementById('modalRoomName').innerText = roomName;
+
+        // Set the room ID in the hidden input field
+        document.getElementById('room_id').value = roomId;
+
+        // You can also use the roomId if you need it, for example:
+        console.log('Room ID:', roomId);
+    }
+
+
+
+    // Assign the PHP value to a JavaScript variable
+    var roomName = <?php echo json_encode($room['room_name']); ?>;
+    var roomID = <?php echo json_encode($room['room_id']); ?>;
+
+    // Now you can use the roomName variable in JavaScript
+    console.log('Room id : ', roomID);  // This will log the room name in the browser's console
+
+
+     document.addEventListener('click', function(e) {
+         if (e.target.closest('.calendar-day')) {
+             const selectedDate = e.target.closest('.calendar-day').dataset.date;
+
+             // Check if the selected date is available
+             if (e.target.closest('.calendar-day').classList.contains('available')) {
+                 // Set the selected date as start and end date in the modal
+                 document.getElementById('start_date').value = selectedDate;
+                 document.getElementById('end_date').value = selectedDate;
+
+
+                 // Set the room name in the modal
+                 document.getElementById('modalRoomName').innerText = roomName;
+
+                    // Set the room ID in the hidden input field
+                    document.getElementById('room_id').value = roomID;
+
+                 // Open the booking modal
+                 const bookingModal = new bootstrap.Modal(document.getElementById('bookingModal1'));
+                 bookingModal.show();
+             }
+         }
+     });
 
 
 

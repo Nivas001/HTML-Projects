@@ -97,7 +97,7 @@ $complexes = ($room_type === 'lecture_hall_complex' || $room_type === 'all') ?
 
                                     <!--to check if the usr is logged in or not-->
                                     <?php if ($loggedIn): ?>
-                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookingModal1" data-roomid="<?php echo $auditorium['room_id']; ?>" data-roomname="<?php echo $auditorium['room_name']; ?>" onclick="event.stopPropagation();">Book Now</button>
+                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookingModal1" data-roomid="<?php echo $auditorium['room_id']; ?>" data-roomname="<?php echo $auditorium['room_name']; ?>" onclick="event.stopPropagation(); fillModalWithData(this);">Book Now</button>
 
                                     <?php else: ?>
                                         <button class="btn btn-primary" onclick="event.stopPropagation(); window.location.href='login.html';">Book Now</button>
@@ -222,141 +222,66 @@ $complexes = ($room_type === 'lecture_hall_complex' || $room_type === 'all') ?
 </div>
 
 <!-- Booking Modal -->
-    <!-- For Auditorium -->
-    <div class="modal fade" id="bookingModal1" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="bookingModalLabel">Book Room</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="bookingForm">
-                        <input type="hidden" id="room_id" name="room_id">
-                        <input type="hidden" id="user_id" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
-
-                        <!-- Start and End Date -->
-                        <div class="mb-3 d-flex justify-content-between">
-                            <div class="flex-fill me-2">
-                                <label for="start_date" class="form-label">Start Date</label>
-                                <input type="date" class="form-control" id="start_date" name="start_date" required>
-                            </div>
-                            <div class="flex-fill ms-2">
-                                <label for="end_date" class="form-label">End Date</label>
-                                <input type="date" class="form-control" id="end_date" name="end_date" required>
-                            </div>
-                        </div>
-
-                        <!-- Session Selection -->
-                        <div class="mb-3">
-                            <label class="form-label">Session</label>
-                            <div class="d-flex justify-content">
-                                <div class="form-check me-3">
-                                    <input class="form-check-input" type="radio" name="session" id="session_an" value="FN" required>
-                                    <label class="form-check-label" for="session_an">
-                                        Forenoon (FN)
-                                        <i class="bi bi-moon"></i>
-                                    </label>
-                                </div>
-                                <div class="form-check me-3">
-                                    <input class="form-check-input" type="radio" name="session" id="session_fn" value="AN" required>
-                                    <label class="form-check-label" for="session_fn">
-                                        <i class="bi bi-sun"></i>
-                                        Afternoon (AN)
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="session" id="session_fn" value="BOTH" required>
-                                    <label class="form-check-label" for="session_fn">
-                                        <i class="bi bi-shift"></i>
-                                        Both (FN & AN)
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Purpose of Booking -->
-                        <div class="mb-3">
-                            <label for="purpose" class="form-label">Purpose of Booking</label>
-                            <textarea class="form-control" id="purpose" name="purpose" rows="3" required></textarea>
-                        </div>
-
-                        <!-- Number of Students Expected -->
-                        <div class="mb-3">
-                            <label for="students_expected" class="form-label">Number of Students Expected</label>
-                            <input type="number" class="form-control" id="students_expected" name="students_expected" required>
-                        </div>
-
-                        <!-- Professor's Name -->
-                        <div class="mb-3">
-                            <label for="professor_name" class="form-label">Professor's Name</label>
-                            <input type="text" class="form-control" id="professor_name" name="professor_name" required>
-                        </div>
-
-                        <!-- Professor's Department -->
-                        <div class="mb-3">
-                            <label for="professor_department" class="form-label">Professor's Department</label>
-                            <input type="text" class="form-control" id="professor_department" name="professor_department" required>
-                        </div>
-
-                        <!-- Professor's Contact Number -->
-                        <div class="mb-3">
-                            <label for="professor_contact" class="form-label">Professor's Contact Number</label>
-                            <input type="text" class="form-control" id="professor_contact" name="professor_contact" required>
-                        </div>
-
-                        <!-- Professor's Email ID -->
-                        <div class="mb-3">
-                            <label for="professor_email" class="form-label">Professor's Email ID</label>
-                            <input type="email" class="form-control" id="professor_email" name="professor_email" required>
-                        </div>
-
-                        <!-- Submit Button -->
-                        <button type="submit" class="btn btn-primary">Book Now</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const filterForm = document.getElementById('filterForm');
 
-        // Function to fetch filtered seminar halls
-        function fetchFilteredHalls() {
-            const checkedFeatures = Array.from(filterForm.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
+    <script>
+        //my own script
+        function fillModalWithData(buttonElement) {
+            // Get the room name and room ID from the data attributes of the clicked button
+            var roomName = buttonElement.getAttribute('data-roomname');
+            var roomId = buttonElement.getAttribute('data-roomid');
 
-            // Create an AJAX request
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'seminar_filters.php', true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    // document.getElementById('auditorium_container').innerHTML = xhr.responseText;
-                    document.getElementById('seminarHallContainer').innerHTML = xhr.responseText;
-                }
-            };
-            // Send the selected features as a query string
-            xhr.send('features=' + JSON.stringify(checkedFeatures));
+
+            console.log('Room Name:', roomName); // Debugging
+            console.log('Room ID:', roomId); // Debugging
+
+            // Set the modal room name
+            document.getElementById('modalRoomName').innerText = roomName;
+
+            // Set the room ID in the hidden input field
+            document.getElementById('room_id').value = roomId;
+
+
+            console.log('Hidden Input Room ID:', document.getElementById('room_id').value); // Debugging
         }
 
-        // Add change event listener to checkboxes
-        filterForm.addEventListener('change', fetchFilteredHalls);
-    });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterForm = document.getElementById('filterForm');
+
+            // Function to fetch filtered seminar halls
+            function fetchFilteredHalls() {
+                const checkedFeatures = Array.from(filterForm.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
+
+                // Create an AJAX request
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'seminar_filters.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        // document.getElementById('auditorium_container').innerHTML = xhr.responseText;
+                        document.getElementById('seminarHallContainer').innerHTML = xhr.responseText;
+                    }
+                };
+                // Send the selected features as a query string
+                xhr.send('features=' + JSON.stringify(checkedFeatures));
+            }
+
+            // Add change event listener to checkboxes
+            filterForm.addEventListener('change', fetchFilteredHalls);
+        });
 
 
 
 
 
 
-</script>
+    </script>
 
 
 <script>
@@ -389,29 +314,35 @@ $complexes = ($room_type === 'lecture_hall_complex' || $room_type === 'all') ?
         modal.find('.modal-title').text('Book ' + roomName);
     });
 
-    $('#bookingForm').on('submit', function(e) {
-        e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: 'book_room.php',
-            data: $(this).serialize(),
-            dataType: 'json',
-            success: function(response) {
-                if(response.success) {
-                    alert(response.success);
-                    $('#bookingModal').modal('hide');
-                } else if(response.error) {
-                    alert(response.error);
-                }
-            },
-            error: function() {
-                alert('An error occurred. Please try again.');
-            }
-        });
-    });
+    // $('#bookingForm').on('submit', function(e) {
+    //     e.preventDefault();
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: 'book_room.php',
+    //         data: $(this).serialize(),
+    //         dataType: 'json',
+    //         success: function(response) {
+    //             if(response.success) {
+    //                 alert(response.success);
+    //                 $('#bookingModal').modal('hide');
+    //             } else if(response.error) {
+    //                 alert(response.error);
+    //             }
+    //         },
+    //         error: function() {
+    //             alert('An error occurred. Please try again.');
+    //         }
+    //     });
+    // });
 
 
 });
+
+
+
+
+
+
 
 </script>
 </body>

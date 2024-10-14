@@ -16,13 +16,15 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="bookingModalLabel">Book Room</h5>
+<!--                <h5 class="modal-title" id="bookingModalLabel">Book Room</h5>-->
+                <h5 class="modal-title" id="bookingModalLabel">Room Booking for <span id="modalRoomName"></span> </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="bookingForm">
+                <form id="bookingForm" method="post" action="booking_modal.php">
                     <input type="hidden" id="room_id" name="room_id">
                     <input type="hidden" id="user_id" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+
 
                     <!-- Start and End Date -->
                     <div class="row mb-3">
@@ -110,5 +112,131 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!--<script>-->
+<!--    document.getElementById('bookingForm').addEventListener('submit', function(event) {-->
+<!--        event.preventDefault(); // Prevent default form submission for debugging-->
+<!---->
+<!--        var roomId = document.getElementById('room_id').value;-->
+<!--        var userId = document.getElementById('user_id').value;-->
+<!---->
+<!--        console.log('Submitting Form');-->
+<!--        console.log('Room ID:', roomId);-->
+<!--        console.log('User ID:', userId);-->
+<!---->
+<!--        // Uncomment the next line to allow the form submission after logging-->
+<!--        // this.submit();-->
+<!--    });-->
+<!---->
+<!--</script>-->
 </body>
 </html>
+
+
+<!--Connection to database-->
+<!-- booking_modal.php -->
+
+<?php
+// Include the database connection
+$host = 'localhost'; // Database host
+$dbname = 'university_portal'; // Database name
+$username = 'root'; // Database username
+$password = ''; // Database password
+
+try {
+    // Connect to the database
+    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Check if the form is submitted
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Get form values
+        $room_id = $_POST['room_id'];
+        $user_id = $_POST['user_id'];
+        $start_date = $_POST['start_date'];
+        $end_date = $_POST['end_date'];
+        $session = $_POST['session'];
+        $purpose = $_POST['purpose'];
+        $students_expected = $_POST['students_expected'];
+        $professor_name = $_POST['professor_name'];
+        $professor_department = $_POST['professor_department'];
+        $professor_contact = $_POST['professor_contact'];
+        $professor_email = $_POST['professor_email'];
+
+        // Determine start_time and end_time based on session
+        if ($session === 'FN') {
+            $start_time = '09:30:00';
+            $end_time = '13:30:00';
+        } elseif ($session === 'AN') {
+            $start_time = '13:30:00';
+            $end_time = '17:00:00';
+        } else { // BOTH
+            $start_time = '09:30:00';
+            $end_time = '17:00:00';
+        }
+
+        // Determine room_type based on room_id
+        if ($room_id >= 1 && $room_id <= 5) {
+            $room_type = 'auditoriums';
+        } else {
+            // Assign a default or handle other cases if needed
+            $room_type = 'other'; // Change this based on your needs
+        }
+
+        // Insert into bookings table first
+        $sql2 = "INSERT INTO bookings (room_id, user_id, start_time, end_time, booking_date, room_type, status)
+                 VALUES (:room_id, :user_id, :start_time, :end_time, :booking_date, :room_type, 'Pending')";
+
+        $stmt2 = $conn->prepare($sql2);
+        $stmt2->bindParam(':room_id', $room_id);
+        $stmt2->bindParam(':user_id', $user_id);
+        $stmt2->bindParam(':start_time', $start_time);
+        $stmt2->bindParam(':end_time', $end_time);
+        $stmt2->bindParam(':booking_date', $start_date); // Using start_date as booking_date
+        $stmt2->bindParam(':room_type', $room_type); // Assuming you have this variable set correctly
+
+        // Execute the bookings insert
+        if ($stmt2->execute()) {
+            // Get the last inserted ID from bookings
+            $last_booking_id = $conn->lastInsertId();
+
+            // Insert into bookings1 table with the same booking_id
+            $sql1 = "INSERT INTO bookings1 (booking_id, room_id, user_id, start_date, end_date, session, purpose, students_expected, professor_name, professor_department, professor_contact, professor_email)
+                      VALUES (:booking_id, :room_id, :user_id, :start_date, :end_date, :session, :purpose, :students_expected, :professor_name, :professor_department, :professor_contact, :professor_email)";
+
+            $stmt1 = $conn->prepare($sql1);
+            $stmt1->bindParam(':booking_id', $last_booking_id); // Use the same booking_id
+            $stmt1->bindParam(':room_id', $room_id);
+            $stmt1->bindParam(':user_id', $user_id);
+            $stmt1->bindParam(':start_date', $start_date);
+            $stmt1->bindParam(':end_date', $end_date);
+            $stmt1->bindParam(':session', $session);
+            $stmt1->bindParam(':purpose', $purpose);
+            $stmt1->bindParam(':students_expected', $students_expected);
+            $stmt1->bindParam(':professor_name', $professor_name);
+            $stmt1->bindParam(':professor_department', $professor_department);
+            $stmt1->bindParam(':professor_contact', $professor_contact);
+            $stmt1->bindParam(':professor_email', $professor_email);
+
+            // Execute the bookings1 insert
+            if ($stmt1->execute()) {
+                // Booking successful
+                echo "<script>alert('Booking successful!');</script>";
+            } else {
+                // Booking1 failed
+                echo "<script>alert('Failed to insert into bookings1.');</script>";
+            }
+        } else {
+            // Booking failed
+            echo "<script>alert('Failed to insert into bookings.');</script>";
+        }
+    }
+} catch (PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}
+
+// Close the connection
+$conn = null;
+?>
+
+
+<!-- booking_modal.php -->

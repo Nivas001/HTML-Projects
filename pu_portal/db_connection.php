@@ -4,7 +4,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "university_portal";
+$dbname = "university_portal1";
 
 $db = new mysqli($servername, $username, $password, $dbname);
 
