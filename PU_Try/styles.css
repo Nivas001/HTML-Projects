@@ -1,0 +1,158 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    overflow: hidden;
+}
+
+/* Header Styles */
+
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+/* Navigation Styles */
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Form Styles */
+form {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form .form-label {
+    font-weight: bold;
+}
+
+form .form-control {
+    margin-bottom: 1rem;
+}
+
+form button {
+    margin-top: 1rem;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 0.5rem;
+    border: 1px solid #dee2e6;
+    text-align: left;
+}
+
+table th {
+    background-color: #f1f1f1;
+}body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+.container-fluid {
+    padding-top: 60px;
+}
+.filter-section {
+    position: sticky; 
+    top: 60px; 
+    height: 100vh; 
+    overflow-y: auto;
+}
+
+.room-list {
+    padding: 20px;
+}
+.card {
+    height: 100%;
+    transition: transform 0.3s;
+}
+.card:hover {
+    transform: translateY(-5px);
+}
+.card-img-top {
+    height: 150px;
+    object-fit: cover;
+}.card-title {
+    
+    font-size: 1rem;
+    font-weight: 500; 
+}
+hr{
+    margin:5px;
+}
+.card-text {
+    font-size: 0.8rem;
+    align-items: flex-start; 
+    justify-content: flex-end;
+}
+
+
+.btn-filter {
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: left;
+}
+.btn-filter.active {
+    background-color: #007bff;
+    color: #fff;
+}       @media (max-width: 992px) {
+            .room-list {
+                margin-left: 0;
+            }
+            .filter-section {
+                width: 100%;
+                position: static;
+                padding: 10px;
+            }
+        }
+.features-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.features-list li {
+    margin-bottom: 5px;
+}
+
+.book-button {
+    background-color: #0044cc;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.book-button:hover {
+    background-color: #0033aa;
+}
