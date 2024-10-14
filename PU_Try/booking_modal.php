@@ -16,8 +16,8 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-<!--                <h5 class="modal-title" id="bookingModalLabel">Book Room</h5>-->
-<h5 class="modal-title" id="bookingModalLabel">Room Booking for <span id="modalRoomName"></span></h5>
+            <!--<h5 class="modal-title" id="bookingModalLabel">Book Room</h5>-->
+                <h5 class="modal-title" id="bookingModalLabel">Room Booking for <span id="modalRoomName"></span></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -31,7 +31,7 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="start_date" class="form-label">Start Date</label>
-                            <input type="date" class="form-control" id="start_date" name="start_date" required>
+                            <input type="date" class="form-control" id="start_date" name="start_date" onchange="syncDates()" required>
                         </div>
                         <div class="col-md-6">
                             <label for="end_date" class="form-label">End Date</label>
@@ -39,9 +39,9 @@
                         </div>
                     </div>
 
-                    <div class="mb-3">
-            <div>            <label style="margin-right:10px;" class="form-label">Booking Type</label> 
-
+            <div class="mb-3">
+            <div>
+                <label style="margin-right:10px;" class="form-label">Booking Type</label>
                 <input   style="margin:0 5px 0 20px;"type="radio" id="session_radio" name="booking_type" value="session" onclick="showSessionOptions()" required>
                 <label  style="margin:0 10px 0 0px;"for="session_radio">Session</label>
                 <input   style="margin:0 5px 0 20px;"type="radio" id="slot_radio" name="booking_type" value="slot" onclick="showSlotOptions()" required>
@@ -84,6 +84,13 @@
                 <label for="slot_8">4:30pm </label>
             </div>
         </div>
+
+        <!-- Add a span to display the warning -->
+        <div class="mb-3" id="session_availability" style="display:none; color:red;">
+            This session is already booked.
+        </div>
+
+
         <div class="mb-3">
             <div>
             <label class="form-label">Purpose of Booking</label>
@@ -128,7 +135,8 @@
                     </div>
 
                     <!-- Submit Button -->
-                  <center> <button type="submit" class="btn btn-primary">Book Now</button></center>
+                    <!--to make button as disabled-->
+                  <center> <button type="submit" class="btn btn-primary" id="submitBtn">Book Now</button></center>
                 </form>
             </div>
         </div>
@@ -150,6 +158,60 @@
         document.getElementById('slot_options').style.display = 'block';
         document.getElementById('session_options').style.display = 'none';
     }
+
+    // Function to sync the end date with the start date
+        function syncDates() {
+            // Get the value of the start date
+            var startDate = document.getElementById('start_date').value;
+
+            // Set the end date to the same as the start date
+            document.getElementById('end_date').value = startDate;
+        }
+
+    //Make the session options visible and book or show warning if already booked
+    function showSessionOptions() {
+        document.getElementById('session_options').style.display = 'block';
+        document.getElementById('slot_options').style.display = 'none';
+
+        // Add event listeners for session radio buttons
+        const sessionRadios = document.querySelectorAll('input[name="session_choice"]');
+        sessionRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                checkAvailability();
+            });
+        });
+    }
+
+    function checkAvailability() {
+        const hall_id = document.getElementById('hall_id').value;
+        const start_date = document.getElementById('start_date').value;
+        const session_choice = document.querySelector('input[name="session_choice"]:checked').value;
+
+        if (hall_id && start_date && session_choice) {
+            $.ajax({
+                url: 'check_availability.php', // PHP script to check availability
+                type: 'POST',
+                data: {
+                    hall_id: hall_id,
+                    start_date: start_date,
+                    session_choice: session_choice
+                },
+                success: function(response) {
+                    if (response === 'booked') {
+                        document.getElementById('session_availability').style.display = 'block';
+                        document.getElementById('submitBtn').disabled = true;
+                    } else {
+                        document.getElementById('session_availability').style.display = 'none';
+                        document.getElementById('submitBtn').disabled = false;
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error in availability check: " + error);
+                }
+            });
+        }
+    }
+
 </script>
 </body>
 
@@ -274,6 +336,32 @@ try {
         } else {
             echo "<script>alert('Booking failed!');</script>";
         }
+
+        //Added to check if the session is already booked
+        $sql = "SELECT COUNT(*) FROM bookings_pu
+                WHERE hall_id = :hall_id
+                AND start_date = :start_date
+                AND start_time <= :end_time
+                AND end_time >= :start_time
+                AND status IN ('approved', 'booked')";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':hall_id', $hall_id);
+        $stmt->bindParam(':start_date', $start_date);
+        $stmt->bindParam(':start_time', $start_time);
+        $stmt->bindParam(':end_time', $end_time);
+        $stmt->execute();
+
+        $count = $stmt->fetchColumn();
+
+        if ($count > 0) {
+            // Session is already booked
+            echo 'booked';
+        } else {
+            // Session is available
+            echo 'available';
+        }
+
     }
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
