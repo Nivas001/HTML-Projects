@@ -69,17 +69,17 @@
                 <input type="checkbox" id="slot_1" name="slots[]" value="1">
                 <label for="slot_1">9:30am </label>
                 <input type="checkbox" id="slot_2" name="slots[]" value="2">
-                <label for="slot_2">10:30am </label> 
+                <label for="slot_2">10:30am </label>
                 <input type="checkbox" id="slot_3" name="slots[]" value="3">
-                <label for="slot_3">11:30am </label> 
+                <label for="slot_3">11:30am </label>
                 <input type="checkbox" id="slot_4" name="slots[]" value="4">
-                <label for="slot_4">12:30pm </label> 
+                <label for="slot_4">12:30pm </label>
                 <input type="checkbox" id="slot_5" name="slots[]" value="5">
-                <label for="slot_5">1:30pm </label> 
+                <label for="slot_5">1:30pm </label>
                 <input type="checkbox" id="slot_6" name="slots[]" value="6">
-                <label for="slot_6">2:30pm </label> 
+                <label for="slot_6">2:30pm </label>
                 <input type="checkbox" id="slot_7" name="slots[]" value="7">
-                <label for="slot_7">3:30pm </label> 
+                <label for="slot_7">3:30pm </label>
                 <input type="checkbox" id="slot_8" name="slots[]" value="8">
                 <label for="slot_8">4:30pm </label>
             </div>
@@ -251,11 +251,11 @@ try {
         $start_time = '';
         $end_time = '';
         $slot_or_session = ''; // Field to store the slot or session data
-        
+
         if (isset($_POST['session_choice'])) {
             // Handle session choices
             $session_choice = $_POST['session_choice'];
-            
+
             if ($session_choice === 'fn') {
                 $start_time = '09:30:00';
                 $end_time = '12:30:00';
@@ -282,7 +282,7 @@ try {
                 '7' => '15:30:00',
                 '8' => '16:30:00'
             ];
-            
+
             // Build the slot_or_session string based on selected slots
             $selected_slots = [];
             foreach ($slots as $slot) {
@@ -290,10 +290,10 @@ try {
                     $selected_slots[] = $slot;
                 }
             }
-            
+
             // Join the selected slots into a string for the slot_or_session field
             $slot_or_session = implode(',', $selected_slots);
-            
+
             // Get the start and end times based on the selected slots
             if (!empty($selected_slots)) {
                 $start_time = $slot_times[min($selected_slots)]; // Earliest slot start time
@@ -302,11 +302,11 @@ try {
         }
 
         // Insert all booking details at once
-        $sql = "INSERT INTO bookings_pu (hall_id, user_id, start_date, end_date, 
-            purpose, purpose_name, students_count, organiser_name, organiser_department, 
+        $sql = "INSERT INTO bookings_pu (hall_id, user_id, start_date, end_date,
+            purpose, purpose_name, students_count, organiser_name, organiser_department,
             organiser_mobile, organiser_email, start_time, end_time, slot_or_session, booking_date, status)
-            VALUES (:hall_id, :user_id, :start_date, :end_date, 
-            :purpose, :purpose_name, :students_count, :organiser_name, :organiser_department, 
+            VALUES (:hall_id, :user_id, :start_date, :end_date,
+            :purpose, :purpose_name, :students_count, :organiser_name, :organiser_department,
             :organiser_mobile, :organiser_email, :start_time, :end_time, :slot_or_session, :booking_date, 'Pending')";
 
         // Prepare the SQL statement
@@ -338,21 +338,21 @@ try {
         }
 
         //Added to check if the session is already booked
-        $sql = "SELECT COUNT(*) FROM bookings_pu
+        $sqql = "SELECT COUNT(*) FROM bookings_pu
                 WHERE hall_id = :hall_id
                 AND start_date = :start_date
                 AND start_time <= :end_time
                 AND end_time >= :start_time
                 AND status IN ('approved', 'booked')";
 
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':hall_id', $hall_id);
-        $stmt->bindParam(':start_date', $start_date);
-        $stmt->bindParam(':start_time', $start_time);
-        $stmt->bindParam(':end_time', $end_time);
-        $stmt->execute();
+        $sstmt = $conn->prepare($sqql);
+        $sstmt->bindParam(':hall_id', $hall_id);
+        $sstmt->bindParam(':start_date', $start_date);
+        $sstmt->bindParam(':start_time', $start_time);
+        $sstmt->bindParam(':end_time', $end_time);
+        $sstmt->execute();
 
-        $count = $stmt->fetchColumn();
+        $count = $sstmt->fetchColumn();
 
         if ($count > 0) {
             // Session is already booked
