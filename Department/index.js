@@ -1,90 +1,130 @@
-// console.log(window.innerWidth);
+// Base PasswordField class
+class PasswordField {
+    constructor(passwordSelector, eyeSelector) {
+        this.passwordField = document.querySelector(passwordSelector);
+        this.eyeIcon = document.querySelector(eyeSelector);
+        this.initializeToggle();
+    }
 
+    initializeToggle() {
+        this.eyeIcon.addEventListener('click', () => this.toggleVisibility());
+    }
 
+    toggleVisibility() {
+        const cursorPosition = this.passwordField.selectionStart;
+        this.passwordField.type = this.passwordField.type === "password" ? "text" : "password";
+        setTimeout(() => {
+            this.passwordField.setSelectionRange(cursorPosition, cursorPosition);
+        }, 0);
+    }
 
-//For visibility of blocks
-function visibility(){
-    const login = document.querySelector('.login');
-    const reg = document.querySelector('.regi');
-    const rename = document.querySelector('#title');
-    reg.style.display = "none";
-    rename.innerHTML = "Login";
-//for login to be visible.
-    document.querySelector('.log-link').addEventListener('click', function(){
-        reg.style.display = "none";
-        login.style.display = "block";
-        rename.innerHTML = "Login";
-    })
-//for register to be visible if log-link clicked
-    document.querySelector('.reg-link').addEventListener('click', function(){
-        login.style.display = "none";
-        reg.style.display = "block";
-        rename.innerHTML = "Register";
-    })
-}
+    validateStrength(submitButton) {
+        const password = this.passwordField.value;
+        const hasUpper = /[A-Z]/.test(password);
+        const hasLower = /[a-z]/.test(password);
+        const hasNum = /[0-9]/.test(password);
+        const hasSpecial = /[~!@#$%^&*(){};<>?]/.test(password);
 
-//change pass to text
-const val = document.querySelector('.pass');
-document.querySelector('.show').addEventListener('click', function (){
-    console.log("pressed");
-    const cursor_position = val.selectionStart;
-    val.type = val.type === "password"?"text" :"password";
-    setTimeout(()=>{
-        val.setSelectionRange(cursor_position, cursor_position);
-    },0);
-})
+        let borderColor = '#836FFF'; // default color
 
-
-//disabling button
-const  btn = document.querySelector('button');
-btn.disabled = true;
-btn.classList.remove('bg');
-btn.style.cursor = "not-allowed";
-
-
-
-
-
-//password color change the border bottom
-let password
-document.querySelector('#pass').addEventListener('keyup', function(){
-    password = document.querySelector('#pass').value;
-    const has_upper = /[A-Z]/.test(password);
-    const has_lower = /[a-z]/.test(password);
-    const has_num = /[0-9]/.test(password);
-    const has_special = /[~!@#$%^&*(){};<>?]/.test(password);
-    console.log(has_num, has_upper, has_lower, has_special);
-
-
-    if(has_upper===true || has_lower===true || has_special ===true || has_num ===true){
-        document.querySelector('input:focus').style.borderBottom = "3px solid red";
-        if(has_num===true && has_upper===true && has_lower=== true){
-            document.querySelector('input:focus').style.borderBottom = "3px solid yellow";
-            if(password.length>7 && has_special===true){
-                document.querySelector('input:focus').style.borderBottom = "3px solid green";
-                btn.disabled = false;
-                btn.style.cursor = "pointer";
+        if (hasUpper || hasLower || hasSpecial || hasNum) {
+            borderColor = 'red';
+            if (hasNum && hasUpper && hasLower) {
+                borderColor = 'yellow';
+                if (password.length > 7 && hasSpecial) {
+                    borderColor = 'green';
+                    submitButton.disabled = false;
+                    submitButton.style.cursor = "pointer";
+                } else {
+                    submitButton.disabled = true;
+                    submitButton.style.cursor = "not-allowed";
+                }
+            } else {
+                submitButton.disabled = true;
+                submitButton.style.cursor = "not-allowed";
             }
         }
+        this.passwordField.style.borderBottom = `3px solid ${borderColor}`;
     }
-    else if(password===''){
-        document.querySelector('input:focus').style.borderBottom = "3px solid #836FFF";
+}
+
+// RegisterPasswordField inherits from PasswordField
+class RegisterPasswordField extends PasswordField {
+    constructor(passwordSelector, eyeSelector, submitButtonSelector) {
+        super(passwordSelector, eyeSelector);
+        this.submitButton = document.querySelector(submitButtonSelector);
+        this.initializeValidation();
     }
 
-    console.log(password);
-})
+    initializeValidation() {
+        this.passwordField.addEventListener('keyup', () => this.validateStrength(this.submitButton));
+    }
+}
 
-// document.querySelector('form').addEventListener('submit', function(event) {
-//     if (!this.checkValidity()) {
-//         // event.preventDefault(); // Prevent form submission if validation fails
-//         alert('Form is not valid!');
-//     } else {
-//         console.log("Form is valid and ready to submit!");
-//         alert('Form is valid and ready to submit!');
-//     }
-// });
+// LoginPasswordField inherits from PasswordField
+class LoginPasswordField extends PasswordField {
+    constructor(passwordSelector, eyeSelector) {
+        super(passwordSelector, eyeSelector);
+    }
+}
 
+// Class for handling visibility
+class VisibilityController {
+    constructor(loginSelector, regSelector, titleSelector, loginLinkSelector, regLinkSelector) {
+        this.login = document.querySelector(loginSelector);
+        this.reg = document.querySelector(regSelector);
+        this.rename = document.querySelector(titleSelector);
 
-visibility();
+        this.initializeEvents(loginLinkSelector, regLinkSelector);
+    }
 
+    initializeEvents(loginLinkSelector, regLinkSelector) {
+        document.querySelector(loginLinkSelector).addEventListener('click', () => this.showLogin());
+        document.querySelector(regLinkSelector).addEventListener('click', () => this.showRegister());
+    }
 
+    showLogin() {
+        this.reg.style.display = "none";
+        this.login.style.display = "block";
+        this.rename.innerHTML = "Login";
+    }
+
+    showRegister() {
+        this.login.style.display = "none";
+        this.reg.style.display = "block";
+        this.rename.innerHTML = "Register";
+    }
+}
+
+// Main PageManager class
+class PageManager {
+    constructor() {
+        this.visibilityController = new VisibilityController(
+            '.login', '.regi', '#title', '.log-link', '.reg-link'
+        );
+
+        // Register form password field with validation
+        this.registerPasswordField = new RegisterPasswordField(
+            '.register-pass', '.register-eye', 'button'
+        );
+
+        // Login form password field toggle
+        this.loginPasswordField = new LoginPasswordField(
+            '.login-pass', '.login-eye'
+        );
+
+        this.initializeButton();
+    }
+
+    initializeButton() {
+        const submitButton = document.querySelector('button');
+        submitButton.disabled = true;
+        submitButton.classList.remove('bg');
+        submitButton.style.cursor = "not-allowed";
+    }
+}
+
+// Initialize the PageManager
+document.addEventListener('DOMContentLoaded', () => {
+    new PageManager();
+});
