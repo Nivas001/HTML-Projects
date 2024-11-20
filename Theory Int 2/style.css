@@ -1,0 +1,25 @@
+.container{
+    margin-top: 250px;
+}
+
+h2{
+    text-align: center;
+}
+
+.btns{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+button{
+    background: #00a2e8;
+    width: 100px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: none;
+    color: #000000;
+    outline: 1px solid black;
+    border: none;
+}
+

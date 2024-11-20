@@ -92,7 +92,7 @@
 <div class="container">
     <h2>Register to use our Service!</h2>
 
-    <form action="register.php" method="post">
+    <form action="register.php" method="post" id="regform">
         <label for="username">Username</label>
         <input type="text" id="username" name="username" placeholder="Jane Doe" required/>
 
@@ -120,6 +120,63 @@
         <p>Already have an account? <a href="login.php">Click here </a></p>
     </form>
 </div>
+
+<script>
+    function validatePassword(password){
+        let hasnum = false;
+        let hasCap = false;
+        let hasSymbol = false;
+        const symbols = "~!@#$%^&*():<>?/";
+
+        for (let char of password){
+            if(char>='A' && char<='Z'){
+                hasCap = true;
+            }
+            else if(char>='0' && char<='9'){
+                hasnum = true;
+            }
+
+            else if(symbols.includes(char)){
+                hasSymbol = true;
+            }
+
+            if(hasnum && hasCap && hasSymbol){
+                break;
+            }
+        }
+
+        if(!hasCap){
+            alert("Please include a Capital letter in password");
+            return false;
+        }
+
+        if(!hasnum){
+            alert("Please include a Number in password");
+            return false;
+        }
+
+        if(!hasSymbol){
+            alert("Please include a Special character in password");
+            return false;
+        }
+
+        return true;
+    }
+
+    document.querySelector("#regform").addEventListener("submit", function(e){
+       e.preventDefault();
+
+       const pwd = document.querySelector("#pwd").value;
+
+       if(validatePassword(pwd)){
+           alert("Valid Password");
+           this.submit();
+       }
+       else{
+           alert("Invalid Password");
+       }
+    });
+</script>
 </body>
 </html>
 
